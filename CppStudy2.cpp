@@ -110,6 +110,7 @@ private:
 	int imag;
 public:
 	Complex(int real, int imag);
+	Complex(const Complex& c);
 	Complex operator +(const Complex& c);
 	Complex operator -(const Complex& c);
 	operator double();
@@ -119,9 +120,13 @@ public:
 	Complex operator -();
 	Complex operator ++(int);
 	Complex& operator ++();
+	Complex& operator =(const Complex& c);
+	
 };
 
 Complex::Complex(int real, int imag) :real(real), imag(imag) {}
+
+Complex::Complex(const Complex& c):real(c.real),imag(c.imag){}
 
 Complex Complex::operator +(const Complex& c) {
 	return Complex(real + c.real, imag + c.imag);
@@ -156,6 +161,12 @@ Complex& Complex::operator ++() {
 	real++; imag++;
 	return *this;
 }
+Complex& Complex::operator =(const Complex& c) {
+	real = c.real;
+	imag = c.imag;
+	return *this;
+}
+
 int main() {
 	Complex c1(5,10);
 	Complex c2(3, 10);
@@ -171,6 +182,13 @@ int main() {
 	cout << mod << endl;
 	
 	cout << -c1;
+
+	//call copy Constructor
+	Complex c3(c2);
+	cout << c3;
+	//call copy =
+	c3 = c1;
+	cout << c3;
 }
 
 
