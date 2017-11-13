@@ -8,6 +8,9 @@ using namespace std;
 //静态多态 以重写的方式实现静态多态
 class Quadrangle {
 public:
+	virtual ~Quadrangle() {
+		cout << "~Quadrangle()" << endl;
+	}
 	string name;
 	double area() const {
 		return -1;
@@ -19,6 +22,9 @@ public:
 };
 class Parallelogram:public Quadrangle{
 public:
+	~Parallelogram() {
+		cout << "~Parallelogram()" << endl;
+	}
 	Parallelogram(int width, int height) :width(width), height(height) {};
 	double area() const {
 		return width*height;
@@ -32,6 +38,9 @@ protected:
 };
 class Trapezoid:public Quadrangle {
 public:
+	~Trapezoid(){
+		cout << "~Trapezoid()" << endl;
+	}
 	Trapezoid(int edge1,int edge2,int height):edge1(edge1),edge2(edge2),height(height) {};
 	double area() const {
 		return (edge1 + edge2)*height / 2;
@@ -63,7 +72,6 @@ class IsoRightTrangle:public RightTrangle {
 		cout << "iso right trangle" << endl;
 	}
 };
-
 int main()
 {
 	//基类调用自己的方法
@@ -95,6 +103,12 @@ int main()
 	qp = &t;
 	qp->draw();
 	refT.draw();
+
+	//当基类对象指针指向子类对象 delete该指针 如果基类析构函数不是虚函数 则只调用基类的析构函数 只释放指向对象的部分空间
+	qp = new Trapezoid(3,4,5);
+	//delete qp;
+	//当基类对象指针指向子类对象 delete该指针 如果基类析构函数是虚函数 则按调用构造函数相反的顺序调用子类的析构函数 直到所有空间被顺序释放
+	delete qp;
 
 	RightTrangle rightTrangle;
 	IsoRightTrangle isoRightTrangle;
