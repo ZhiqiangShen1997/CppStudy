@@ -22,7 +22,7 @@ public:
 	void addSecond(int second);
 	void addMinute(int minute);
 	void addHour(int hour);
-	void addDay(int day); 
+	void addDay(int day);
 	void addMonth(int month);
 	void addYear(int year);
 
